@@ -1,24 +1,90 @@
 PODS:
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
-  - EXApplication (5.1.1):
+  - EXApplication (5.2.0):
     - ExpoModulesCore
-  - EXAV (13.2.1):
+  - EXAV (13.3.0):
     - ExpoModulesCore
     - ReactCommon/turbomodule/core
-  - EXCamera (13.2.1):
+  - EXCamera (13.3.0):
     - ExpoModulesCore
-  - EXConstants (14.2.1):
+  - EXConstants (14.3.0):
     - ExpoModulesCore
-  - EXFileSystem (15.2.2):
+  - EXFileSystem (15.3.0):
     - ExpoModulesCore
-  - EXFont (11.1.1):
+  - EXFont (11.2.0):
     - ExpoModulesCore
-  - Expo (48.0.1):
+  - EXJSONUtils (0.6.0)
+  - EXManifests (0.6.0):
     - ExpoModulesCore
-  - ExpoAppleAuthentication (6.0.1):
+  - Expo (49.0.0-alpha.3):
     - ExpoModulesCore
-  - ExpoBlur (12.3.0):
+  - expo-dev-client (2.3.0):
+    - EXManifests
+    - expo-dev-launcher
+    - expo-dev-menu
+    - expo-dev-menu-interface
+    - EXUpdatesInterface
+  - expo-dev-launcher (2.3.0):
+    - EXManifests
+    - expo-dev-launcher/Main (= 2.3.0)
+    - expo-dev-menu
+    - expo-dev-menu-interface
+    - ExpoModulesCore
+    - EXUpdatesInterface
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+  - expo-dev-launcher/Main (2.3.0):
+    - EXManifests
+    - expo-dev-launcher/Unsafe
+    - expo-dev-menu
+    - expo-dev-menu-interface
+    - ExpoModulesCore
+    - EXUpdatesInterface
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+  - expo-dev-launcher/Unsafe (2.3.0):
+    - EXManifests
+    - expo-dev-menu
+    - expo-dev-menu-interface
+    - ExpoModulesCore
+    - EXUpdatesInterface
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+  - expo-dev-menu (3.0.0):
+    - expo-dev-menu/Main (= 3.0.0)
+  - expo-dev-menu-interface (1.2.0)
+  - expo-dev-menu/Main (3.0.0):
+    - EXManifests
+    - expo-dev-menu-interface
+    - expo-dev-menu/Vendored
+    - ExpoModulesCore
+    - React-Core
+  - expo-dev-menu/SafeAreaView (3.0.0):
+    - ExpoModulesCore
+  - expo-dev-menu/Vendored (3.0.0):
+    - expo-dev-menu/SafeAreaView
+  - ExpoAppleAuthentication (6.1.0):
+    - ExpoModulesCore
+  - ExpoBlur (12.3.1):
     - ExpoModulesCore
   - ExpoImage (1.2.2):
     - ExpoModulesCore
@@ -26,19 +92,20 @@ PODS:
     - SDWebImageAVIFCoder (~> 0.9.4)
     - SDWebImageSVGCoder (~> 1.6.1)
     - SDWebImageWebPCoder (~> 0.9.1)
-  - ExpoKeepAwake (12.0.1):
+  - ExpoKeepAwake (12.1.0):
     - ExpoModulesCore
-  - ExpoLinearGradient (12.1.1):
+  - ExpoLinearGradient (12.2.0):
     - ExpoModulesCore
-  - ExpoModulesCore (1.2.2):
+  - ExpoModulesCore (1.3.2):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTAppDelegate
     - React-RCTFabric
     - ReactCommon/turbomodule/core
-  - EXSplashScreen (0.18.1):
+  - EXSplashScreen (0.19.0):
     - ExpoModulesCore
     - React-Core
+  - EXUpdatesInterface (0.9.2)
   - FBLazyVector (0.71.7)
   - FBReactNativeSpec (0.71.7):
     - RCT-Folly (= 2021.07.22.00)
@@ -49,9 +116,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.71.7)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - hermes-engine (0.71.6):
-    - hermes-engine/Pre-built (= 0.71.6)
-  - hermes-engine/Pre-built (0.71.6)
+  - hermes-engine (0.71.7):
+    - hermes-engine/Pre-built (= 0.71.7)
+  - hermes-engine/Pre-built (0.71.7)
   - libaom (2.0.2):
     - libvmaf
   - libavif (0.10.1):
@@ -763,7 +830,13 @@ DEPENDENCIES:
   - EXConstants (from `../../../packages/expo-constants/ios`)
   - EXFileSystem (from `../../../packages/expo-file-system/ios`)
   - EXFont (from `../../../packages/expo-font/ios`)
+  - EXJSONUtils (from `../../../packages/expo-json-utils/ios`)
+  - EXManifests (from `../../../packages/expo-manifests/ios`)
   - Expo (from `../../../packages/expo`)
+  - expo-dev-client (from `../../../packages/expo-dev-client/ios`)
+  - expo-dev-launcher (from `../../../packages/expo-dev-launcher`)
+  - expo-dev-menu (from `../../../packages/expo-dev-menu`)
+  - expo-dev-menu-interface (from `../../../packages/expo-dev-menu-interface/ios`)
   - ExpoAppleAuthentication (from `../../../packages/expo-apple-authentication/ios`)
   - ExpoBlur (from `../../../packages/expo-blur/ios`)
   - ExpoImage (from `../../../packages/expo-image/ios`)
@@ -771,6 +844,7 @@ DEPENDENCIES:
   - ExpoLinearGradient (from `../../../packages/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../../../packages/expo-modules-core`)
   - EXSplashScreen (from `../../../packages/expo-splash-screen/ios`)
+  - EXUpdatesInterface (from `../../../packages/expo-updates-interface/ios`)
   - FBLazyVector (from `../../../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../../../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../../../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -841,8 +915,20 @@ EXTERNAL SOURCES:
     :path: "../../../packages/expo-file-system/ios"
   EXFont:
     :path: "../../../packages/expo-font/ios"
+  EXJSONUtils:
+    :path: "../../../packages/expo-json-utils/ios"
+  EXManifests:
+    :path: "../../../packages/expo-manifests/ios"
   Expo:
     :path: "../../../packages/expo"
+  expo-dev-client:
+    :path: "../../../packages/expo-dev-client/ios"
+  expo-dev-launcher:
+    :path: "../../../packages/expo-dev-launcher"
+  expo-dev-menu:
+    :path: "../../../packages/expo-dev-menu"
+  expo-dev-menu-interface:
+    :path: "../../../packages/expo-dev-menu-interface/ios"
   ExpoAppleAuthentication:
     :path: "../../../packages/expo-apple-authentication/ios"
   ExpoBlur:
@@ -857,6 +943,8 @@ EXTERNAL SOURCES:
     :path: "../../../packages/expo-modules-core"
   EXSplashScreen:
     :path: "../../../packages/expo-splash-screen/ios"
+  EXUpdatesInterface:
+    :path: "../../../packages/expo-updates-interface/ios"
   FBLazyVector:
     :path: "../../../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -933,25 +1021,32 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
-  EXApplication: d8f53a7eee90a870a75656280e8d4b85726ea903
-  EXAV: f1f69397ecdcf44cfacd4ff5d338cd1b96891e87
-  EXCamera: a323a5942b5e7fc8349e17d728e91c18840ad561
-  EXConstants: f348da07e21b23d2b085e270d7b74f282df1a7d9
-  EXFileSystem: a736b6854370a36e4daee79b1f2b5bbc9df18bf4
-  EXFont: 6ea3800df746be7233208d80fe379b8ed74f4272
-  Expo: 79deb55f33fab1b232232868a74713772943238d
-  ExpoAppleAuthentication: 7bd5e4150d59e8df37aa80b425850ae88adf9e65
-  ExpoBlur: b0d995dbfc725fc5b7ee60da076131995300815d
+  EXApplication: 45c662ace096520d412e8f2c956482c8ffac1436
+  EXAV: c661e742e2ee1986f5a6a030b48d9d3a3507d2f0
+  EXCamera: f231ff0f85e84dc6e8167f4a8e2881d2e4260e5c
+  EXConstants: 29269f841ed8786d483b753021953264ac04818f
+  EXFileSystem: 0b4a2c08c2dc92146849772145d61c1773144283
+  EXFont: 6a9d36ba12a7156095a251097a5f7136f37f975b
+  EXJSONUtils: babb80f7eab885b0135ae00b633d2d52b4a44fff
+  EXManifests: 37a0bb3514806cf432f6538fcc9825107fc23436
+  Expo: 0b569a9cefb602d6cb80633c990153ab921aa652
+  expo-dev-client: b9a1eefeb4c93677753c734ad72072db3404caf9
+  expo-dev-launcher: 4fbecc36d52d25be131e4a4ab89596ab1bb95b3c
+  expo-dev-menu: 4b131e68ea69510870efa44659f1f9ddc7b9621b
+  expo-dev-menu-interface: f74523f940ba5306b0d2f37a488a77b44d57f572
+  ExpoAppleAuthentication: 7bdf1a2962ebfe9b00eb4183a17b78d736e57185
+  ExpoBlur: 83186055c9c5c7ea564d04c6ed766ef7896889ed
   ExpoImage: 5129495e9981da259c652e23bd87615980864818
-  ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
-  ExpoLinearGradient: 496147427ac1a8ee4738e016e94fc19ba2f3a00a
-  ExpoModulesCore: e093fd5d0fafc8d5c1d2c8c44f40811475315bf3
-  EXSplashScreen: cd7fb052dff5ba8311d5c2455ecbebffe1b7a8ca
+  ExpoKeepAwake: 6604830433e76ce03306b82054e634e81a6b9bbb
+  ExpoLinearGradient: c206f987c810bf988b1896db8fa88db31b4687d6
+  ExpoModulesCore: b520474230598a93a95f09a6377632d68afe10d4
+  EXSplashScreen: 7a22faa7ef6e1e6fc57ce98f4941a73147d6c19c
+  EXUpdatesInterface: c08eaa7e4d1fdafff3820e0539a6d42a75fa0258
   FBLazyVector: a89a0525bc7ca174675045c2b492b5280d5a2470
   FBReactNativeSpec: 3978f6ab2d9917e8a7bf91411f03091a7ce1bef7
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
-  hermes-engine: b434cea529ad0152c56c7cb6486b0c4c0b23b5de
+  hermes-engine: 4438d2b8bf8bebaba1b1ac0451160bab59e491f8
   libaom: 9bb51e0f8f9192245e3ca2a1c9e4375d9cbccc52
   libavif: e242998ccec1c83bcba0bbdc256f460ad5077348
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
