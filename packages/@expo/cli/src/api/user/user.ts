@@ -5,15 +5,22 @@ import { CurrentUserQuery } from '../../graphql/generated';
 import * as Log from '../../log';
 import * as Analytics from '../../utils/analytics/rudderstackClient';
 import { getDevelopmentCodeSigningDirectory } from '../../utils/codesigning';
+import { getExpoWebsiteBaseUrl, getSsoLocalServerPort } from '../endpoint';
 import { graphqlClient } from '../graphql/client';
 import { UserQuery } from '../graphql/queries/UserQuery';
 import { fetchAsync } from '../rest/client';
 import { APISettings } from '../settings';
 import UserSettings from './UserSettings';
+import expoSsoLauncher from './expoSsoLauncher';
 
 export type Actor = NonNullable<CurrentUserQuery['meActor']>;
 
 let currentUser: Actor | undefined;
+
+const config = {
+  expoWebsiteUrl: getExpoWebsiteBaseUrl(),
+  serverPort: getSsoLocalServerPort(),
+};
 
 export const ANONYMOUS_USERNAME = 'anonymous';
 
@@ -25,6 +32,8 @@ export const ANONYMOUS_USERNAME = 'anonymous';
 export function getActorDisplayName(user?: Actor): string {
   switch (user?.__typename) {
     case 'User':
+      return user.username;
+    case 'SSOUser':
       return user.username;
     case 'Robot':
       return user.firstName ? `${user.firstName} (robot)` : 'robot';
@@ -61,11 +70,58 @@ export async function loginAsync(json: {
   const {
     data: { sessionSecret },
   } = await res.json();
+
+  const userData = await fetchUserAsync({ sessionSecret });
+
+  await UserSettings.setSessionAsync({
+    sessionSecret,
+    userId: userData.id,
+    username: userData.username,
+    currentConnection: 'Username-Password-Authentication',
+  });
+}
+
+export async function ssoLoginAsync(): Promise<void> {
+  const auth = expoSsoLauncher(config);
+  const sessionSecret = await auth.executeAuthFlow();
+  const userData = await fetchUserAsync({ sessionSecret });
+
+  await UserSettings.setSessionAsync({
+    sessionSecret,
+    userId: userData.id,
+    username: userData.username,
+    currentConnection: 'Username-Password-Authentication',
+  });
+}
+
+export async function logoutAsync(): Promise<void> {
+  const user = await getUserAsync().catch(() => null);
+  const currentConnection = UserSettings.getSession()?.currentConnection;
+  if (user?.__typename === 'SSOUser' && currentConnection === 'Username-Password-Authentication') {
+    // Delete login session and revoke SSO tokens stored on servers
+    await fetchAsync('auth/logout', {
+      method: 'POST',
+      body: undefined,
+    });
+  }
+  currentUser = undefined;
+  await Promise.all([
+    fs.rm(getDevelopmentCodeSigningDirectory(), { recursive: true, force: true }),
+    UserSettings.setSessionAsync(undefined),
+  ]);
+  Log.log('Logged out');
+}
+
+async function fetchUserAsync({
+  sessionSecret,
+}: {
+  sessionSecret: string;
+}): Promise<{ id: string; username: string }> {
   const result = await graphqlClient
     .query(
       gql`
         query UserQuery {
-          viewer {
+          meUserActor {
             id
             username
           }
@@ -82,22 +138,9 @@ export async function loginAsync(json: {
       }
     )
     .toPromise();
-  const {
-    data: { viewer },
-  } = result;
-  await UserSettings.setSessionAsync({
-    sessionSecret,
-    userId: viewer.id,
-    username: viewer.username,
-    currentConnection: 'Username-Password-Authentication',
-  });
-}
-
-export async function logoutAsync(): Promise<void> {
-  currentUser = undefined;
-  await Promise.all([
-    fs.rm(getDevelopmentCodeSigningDirectory(), { recursive: true, force: true }),
-    UserSettings.setSessionAsync(undefined),
-  ]);
-  Log.log('Logged out');
+  const { data } = result;
+  return {
+    id: data.meUserActor.id,
+    username: data.meUserActor.username,
+  };
 }

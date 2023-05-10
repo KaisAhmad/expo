@@ -17,7 +17,7 @@ jest.mock('../../graphql/client', () => ({
     query: () => {
       return {
         toPromise: () =>
-          Promise.resolve({ data: { viewer: { id: 'USER_ID', username: 'USERNAME' } } }),
+          Promise.resolve({ data: { meUserActor: { id: 'USER_ID', username: 'USERNAME' } } }),
       };
     },
   },
@@ -34,6 +34,14 @@ beforeEach(() => {
 
 const userStub: Actor = {
   __typename: 'User',
+  id: 'userId',
+  username: 'username',
+  accounts: [],
+  isExpoAdmin: false,
+};
+
+const sSoUserStub: Actor = {
+  __typename: 'SSOUser',
   id: 'userId',
   username: 'username',
   accounts: [],

@@ -16,7 +16,7 @@ export const expoRegister: Command = async (argv) => {
 
   if (args['--help']) {
     printHelp(
-      `Sign up for a new Expo account`,
+      `Sign up for a new Expo account (for non-SSO user only)`,
       `npx expo register`,
       // Options
       `-h, --help    Usage info`

@@ -10,3 +10,24 @@ export function getExpoApiBaseUrl(): string {
     return `https://api.expo.dev`;
   }
 }
+
+/** Get the URL for the expo.dev website. */
+export function getExpoWebsiteBaseUrl(): string {
+  if (env.EXPO_STAGING) {
+    return `https://staging.expo.dev`;
+  } else if (env.EXPO_LOCAL) {
+    return `http://localhost:3001`;
+  } else {
+    return `https://expo.dev`;
+  }
+}
+
+export function getSsoLocalServerPort(): number {
+  let port: number;
+  if (process.env.SSO_LOCAL_SERVER_PORT) {
+    port = parseInt(process.env.SSO_LOCAL_SERVER_PORT, 10);
+  } else {
+    port = 8080;
+  }
+  return port;
+}
