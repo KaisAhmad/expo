@@ -51,6 +51,7 @@
 @property (nonatomic, strong) EXDevLauncherErrorManager *errorManager;
 @property (nonatomic, strong) EXDevLauncherInstallationIDHelper *installationIDHelper;
 @property (nonatomic, assign) BOOL isStarted;
+@property (nonatomic, strong) EXDevLauncherBridgeDelegate *bridgeDelegate;
 
 @end
 
@@ -76,6 +77,7 @@
     self.errorManager = [[EXDevLauncherErrorManager alloc] initWithController:self];
     self.installationIDHelper = [EXDevLauncherInstallationIDHelper new];
     self.shouldPreferUpdatesInterfaceSourceUrl = NO;
+    self.bridgeDelegate = [EXDevLauncherBridgeDelegate new];
     [EXDevLauncherNetworkLogger.shared enable];
   }
   return self;
@@ -268,7 +270,7 @@
 
   [self _removeInitModuleObserver];
   UIApplication *application = [UIApplication sharedApplication];
-  UIView *rootView = [EXDevLauncherBridgeDelegate createRootViewWithModuleName:@"main" launchOptions:_launchOptions application:application];
+  UIView *rootView = [_bridgeDelegate createRootViewWithModuleName:@"main" launchOptions:_launchOptions application:application];
 
   [self _ensureUserInterfaceStyleIsInSyncWithTraitEnv:rootView];
 
