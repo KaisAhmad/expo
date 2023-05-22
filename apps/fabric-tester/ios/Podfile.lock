@@ -71,27 +71,58 @@ PODS:
     - ReactCommon/turbomodule/core
   - expo-dev-menu (3.0.0):
     - expo-dev-menu/Main (= 3.0.0)
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
   - expo-dev-menu-interface (1.2.0)
   - expo-dev-menu/Main (3.0.0):
     - EXManifests
     - expo-dev-menu-interface
     - expo-dev-menu/Vendored
     - ExpoModulesCore
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
     - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
   - expo-dev-menu/SafeAreaView (3.0.0):
     - ExpoModulesCore
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
   - expo-dev-menu/Vendored (3.0.0):
     - expo-dev-menu/SafeAreaView
+    - RCT-Folly (= 2021.07.22.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-RCTFabric
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
   - ExpoAppleAuthentication (6.1.0):
     - ExpoModulesCore
   - ExpoBlur (12.3.1):
     - ExpoModulesCore
   - ExpoImage (1.2.3):
     - ExpoModulesCore
-    - SDWebImage (~> 5.15.0)
+    - SDWebImage (~> 5.15.8)
     - SDWebImageAVIFCoder (~> 0.10.0)
-    - SDWebImageSVGCoder (~> 1.6.1)
-    - SDWebImageWebPCoder (~> 0.9.1)
+    - SDWebImageSVGCoder (~> 1.7.0)
+    - SDWebImageWebPCoder (~> 0.11.0)
   - ExpoKeepAwake (12.1.0):
     - ExpoModulesCore
   - ExpoLinearGradient (12.2.0):
@@ -808,17 +839,17 @@ PODS:
     - React-jsi (= 0.71.7)
     - React-logger (= 0.71.7)
     - React-perflogger (= 0.71.7)
-  - SDWebImage (5.15.4):
-    - SDWebImage/Core (= 5.15.4)
-  - SDWebImage/Core (5.15.4)
+  - SDWebImage (5.15.8):
+    - SDWebImage/Core (= 5.15.8)
+  - SDWebImage/Core (5.15.8)
   - SDWebImageAVIFCoder (0.10.0):
     - libavif (>= 0.11.0)
     - SDWebImage (~> 5.10)
-  - SDWebImageSVGCoder (1.6.1):
+  - SDWebImageSVGCoder (1.7.0):
     - SDWebImage/Core (~> 5.6)
-  - SDWebImageWebPCoder (0.9.1):
+  - SDWebImageWebPCoder (0.11.0):
     - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.13)
+    - SDWebImage/Core (~> 5.15)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -1032,11 +1063,11 @@ SPEC CHECKSUMS:
   Expo: 0b569a9cefb602d6cb80633c990153ab921aa652
   expo-dev-client: b9a1eefeb4c93677753c734ad72072db3404caf9
   expo-dev-launcher: e7f3023e9095825855c56ea3892cdf50ad284889
-  expo-dev-menu: 4b131e68ea69510870efa44659f1f9ddc7b9621b
+  expo-dev-menu: a5ae126c89692d2a4732640590de2ed42438dddd
   expo-dev-menu-interface: f74523f940ba5306b0d2f37a488a77b44d57f572
   ExpoAppleAuthentication: 7bdf1a2962ebfe9b00eb4183a17b78d736e57185
   ExpoBlur: 83186055c9c5c7ea564d04c6ed766ef7896889ed
-  ExpoImage: 60f8d8182e8e13b5f5c2bb6bc860c933b2fe6c25
+  ExpoImage: f19f918d2ff1c9c9fbedc266e6a28d10aa335800
   ExpoKeepAwake: 6604830433e76ce03306b82054e634e81a6b9bbb
   ExpoLinearGradient: c206f987c810bf988b1896db8fa88db31b4687d6
   ExpoModulesCore: b520474230598a93a95f09a6377632d68afe10d4
@@ -1083,10 +1114,10 @@ SPEC CHECKSUMS:
   React-rncore: f60e5973fbf1682cc57380ea9b0fe81280e5033b
   React-runtimeexecutor: c5c89f8f543842dd864b63ded1b0bbb9c9445328
   ReactCommon: dbfbe2f7f3c5ce4ce44f43f2fd0d5950d1eb67c5
-  SDWebImage: 1c39de67663e5eebb2f41324d5d580eeea12dd4c
+  SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
   SDWebImageAVIFCoder: 4aeea8fdf65af5c18525ecb5bdd8b8ed9bb45019
-  SDWebImageSVGCoder: 6fc109f9c2a82ab44510fff410b88b1a6c271ee8
-  SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
+  SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
+  SDWebImageWebPCoder: 295a6573c512f54ad2dd58098e64e17dcf008499
   Yoga: d56980c8914db0b51692f55533409e844b66133c
 
 PODFILE CHECKSUM: 40c2a83710f34778bce3f4f788bae1a3a15bcebc
