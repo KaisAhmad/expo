@@ -80,7 +80,11 @@ export default function GLViewOnBusyWorkletThread() {
   return (
     <View style={styles.flex}>
       {show ? (
-        <GLView style={styles.flex} onContextCreate={onContextCreate} />
+        <GLView
+          style={styles.flex}
+          onContextCreate={onContextCreate}
+          enableExperimentalWorkletSupport
+        />
       ) : (
         <View style={styles.placeholder}>
           <Text>no gl view</Text>

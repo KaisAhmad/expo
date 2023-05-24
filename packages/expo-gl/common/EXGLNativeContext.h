@@ -52,9 +52,9 @@ class EXGLContext {
   EXGLContext(EXGLContextId ctxId) : ctxId(ctxId) {}
   void prepareContext(
       jsi::Runtime &runtime,
-      bool enableExperimentalWorkletSupport,
       std::function<void(void)> flushMethod);
-  void maybePrepareWorkletContext(jsi::Runtime &runtime, initGlesContext viewport);
+  void maybeResolveWorkletContext(jsi::Runtime &runtime);
+  void prepareWorkletContext();
 
   // --- Queue handling --------------------------------------------------------
 
@@ -109,7 +109,7 @@ class EXGLContext {
   GLuint lookupObject(EXGLObjectId exglObjId) noexcept;
 
   void tryRegisterOnJSRuntimeDestroy(jsi::Runtime &runtime);
-  initGlesContext prepareOpenGLESContext();
+  glesContext prepareOpenGLESContext();
   void maybeReadAndCacheSupportedExtensions();
 
  private:
@@ -120,6 +120,10 @@ class EXGLContext {
 
  public:
   EXGLContextId ctxId;
+  // Worklet runtime is storred here only to avoid it passing through Java/Obj-C.
+  // It should only be used in prepareContext and prepareWorkletContext.
+  jsi::Runtime* maybeWorkletRuntime = nullptr;
+  glesContext initialGlesContext;
 
   // Object mapping
   std::unordered_map<EXGLObjectId, GLuint> objects;
