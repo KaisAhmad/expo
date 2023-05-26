@@ -28,9 +28,7 @@ Pod::Spec.new do |s|
     ]
   }
 
-  s.xcconfig = {
-    'GCC_PREPROCESSOR_DEFINITIONS' => "EX_DEV_LAUNCHER_VERSION=#{s.version}"
-  }
+  new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 
   other_c_flags = '$(inherited)'
   dev_launcher_url = ENV['EX_DEV_LAUNCHER_URL'] || ""
@@ -42,6 +40,15 @@ Pod::Spec.new do |s|
   if ENV['EX_DEV_CLIENT_NETWORK_INSPECTOR'] == '1'
     other_swift_flags += ' -DEX_DEV_CLIENT_NETWORK_INSPECTOR'
   end
+
+  if new_arch_enabled
+    other_c_flags += ' -DRN_FABRIC_ENABLED -DRCT_NEW_ARCH_ENABLED'
+  end
+
+  s.xcconfig = {
+    'GCC_PREPROCESSOR_DEFINITIONS' => "EX_DEV_LAUNCHER_VERSION=#{s.version}",
+    'OTHER_CFLAGS' => other_c_flags,
+  }
 
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
