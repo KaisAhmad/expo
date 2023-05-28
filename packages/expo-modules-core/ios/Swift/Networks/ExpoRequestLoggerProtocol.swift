@@ -6,7 +6,7 @@ import Foundation
  A `URLSession` interceptor which passes network events to its delegate
  */
 @objc
-public class ExpoRequestInterceptorProtocol: URLProtocol, URLSessionDataDelegate {
+public final class ExpoRequestInterceptorProtocol: URLProtocol, URLSessionDataDelegate {
   private static let REQUEST_ID = "ExpoRequestInterceptorProtocol.requestId"
   private static var requestIdProvider = RequestIdProvider()
   private lazy var urlSession = URLSession(

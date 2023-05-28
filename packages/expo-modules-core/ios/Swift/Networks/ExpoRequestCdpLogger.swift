@@ -6,7 +6,7 @@ import Foundation
  The `ExpoNetworkInterceptorProtocolDelegate` implementation to dispatch CDP (Chrome DevTools Protocol) events
  */
 @objc
-public class ExpoRequestCdpLogger: NSObject, ExpoRequestInterceptorProtocolDelegate {
+public final class ExpoRequestCdpLogger: NSObject, ExpoRequestInterceptorProtocolDelegate {
   private var delegate: ExpoRequestCdpLoggerDelegate?
 
   override private init() {}

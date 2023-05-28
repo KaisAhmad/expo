@@ -3,6 +3,8 @@
 import ExpoModulesCore
 import React
 
+#if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
+
 @objc(EXDevLauncherNetworkInterceptor)
 public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLoggerDelegate {
   private static var isHookSetuped = false
@@ -10,7 +12,6 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
 
   public override init() {
     super.init()
-    #if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
     assert(Thread.isMainThread)
 
     if !Self.isHookSetuped {
@@ -28,15 +29,11 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
     }
 
     ExpoRequestCdpLogger.shared.setDelegate(self)
-    #endif
   }
 
   deinit {
-    #if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
     assert(Thread.isMainThread)
-
     ExpoRequestCdpLogger.shared.setDelegate(nil)
-    #endif
   }
 
   // MARK: ExpoRequestCdpLoggerDelegate implementations
@@ -45,8 +42,6 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
     Self.inspectorPackagerConn?.sendWrappedEventToAllPages(event)
   }
 }
-
-#if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
 
 extension RCTInspectorDevServerHelper {
   private typealias ConnectFunc = @convention(c) (AnyObject, Selector, URL)
@@ -124,6 +119,11 @@ extension URLSessionConfiguration {
     config.protocolClasses = protocolClasses
     return config
   }
+}
+
+#else
+
+public final class DevLauncherNetworkInterceptor: NSObject {
 }
 
 #endif
