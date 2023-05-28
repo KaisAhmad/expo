@@ -123,6 +123,7 @@ extension URLSessionConfiguration {
 
 #else
 
+@objc(EXDevLauncherNetworkInterceptor)
 public final class DevLauncherNetworkInterceptor: NSObject {
 }
 
