@@ -38,6 +38,7 @@ final class ExpoRequestCdpLoggerSpec: ExpoSpec {
 
   override func spec() {
     beforeSuite {
+      ExpoRequestCdpLogger.shared.dispatchQueue = DispatchQueue.main
       ExpoRequestCdpLogger.shared.setDelegate(self.mockDelegate)
     }
 
@@ -48,8 +49,8 @@ final class ExpoRequestCdpLoggerSpec: ExpoSpec {
     it("simple json data") {
       waitUntil(timeout: .seconds(2)) { done in
         self.session.dataTask(with: URL(string: "https://raw.githubusercontent.com/expo/expo/main/package.json")!) { (data, response, error) in
-          DispatchQueue.global().sync {
-            expect(self.mockDelegate.events.count).to(equal(4))
+          DispatchQueue.main.async {
+            expect(self.mockDelegate.events.count).to(equal(5))
 
             // Network.requestWillBeSent
             var json = self.parseJSON(data: self.mockDelegate.events[0])
@@ -102,7 +103,7 @@ final class ExpoRequestCdpLoggerSpec: ExpoSpec {
     it("http 302 redirection") {
       waitUntil(timeout: .seconds(2)) { done in
         self.session.dataTask(with: URL(string: "https://github.com/expo.png")!) { (data, response, error) in
-          DispatchQueue.global().sync {
+          DispatchQueue.main.async {
             expect(self.mockDelegate.events.count).to(equal(7))
 
             // Network.requestWillBeSent

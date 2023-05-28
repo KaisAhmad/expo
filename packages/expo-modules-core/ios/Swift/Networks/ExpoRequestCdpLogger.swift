@@ -8,6 +8,7 @@ import Foundation
 @objc
 public final class ExpoRequestCdpLogger: NSObject, ExpoRequestInterceptorProtocolDelegate {
   private var delegate: ExpoRequestCdpLoggerDelegate?
+  internal var dispatchQueue = DispatchQueue(label: "expo.requestCdpLogger")
 
   override private init() {}
 
@@ -16,13 +17,13 @@ public final class ExpoRequestCdpLogger: NSObject, ExpoRequestInterceptorProtoco
 
   @objc
   public func setDelegate(_ newValue: ExpoRequestCdpLoggerDelegate?) {
-    DispatchQueue.global().sync {
+    dispatchQueue.async {
       self.delegate = newValue
     }
   }
 
   private func dispatchEvent<T: CdpNetwork.EventParms>(_ event: CdpNetwork.Event<T>) {
-    DispatchQueue.global().sync {
+    dispatchQueue.async {
       let encoder = JSONEncoder()
       if let jsonData = try? encoder.encode(event), let payload = String(data: jsonData, encoding: .utf8) {
         self.delegate?.dispatch(payload)
