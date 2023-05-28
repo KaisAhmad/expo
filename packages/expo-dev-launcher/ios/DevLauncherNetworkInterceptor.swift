@@ -10,10 +10,10 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
 
   public override init() {
     super.init()
-#if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
+    #if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
     assert(Thread.isMainThread)
 
-    if (!Self.isHookSetuped) {
+    if !Self.isHookSetuped {
       EXDevLauncherUtils.swizzleClassMethod(
         selector: #selector(RCTInspectorDevServerHelper.connect(withBundleURL:)),
         withSelector: #selector(RCTInspectorDevServerHelper.EXDevLauncher_connect(withBundleURL:)),
@@ -24,18 +24,19 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
         withSelector: #selector(URLSessionConfiguration.EXDevLauncher_urlSessionConfiguration),
         forClass: URLSessionConfiguration.self
       )
+      Self.isHookSetuped = true
     }
 
     ExpoRequestCdpLogger.shared.setDelegate(self)
-#endif
+    #endif
   }
 
   deinit {
-#if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
+    #if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
     assert(Thread.isMainThread)
 
     ExpoRequestCdpLogger.shared.setDelegate(nil)
-#endif
+    #endif
   }
 
   // MARK: ExpoRequestCdpLoggerDelegate implementations
@@ -44,6 +45,8 @@ public final class DevLauncherNetworkInterceptor: NSObject, ExpoRequestCdpLogger
     Self.inspectorPackagerConn?.sendWrappedEventToAllPages(event)
   }
 }
+
+#if DEBUG && EX_DEV_CLIENT_NETWORK_INSPECTOR
 
 extension RCTInspectorDevServerHelper {
   private typealias ConnectFunc = @convention(c) (AnyObject, Selector, URL)
@@ -94,10 +97,8 @@ extension RCTInspectorPackagerConnection {
     guard isReadyToSend() else {
       return
     }
-    for page in RCTInspector.pages() {
-      if (!page.title.contains("Reanimated")) {
-        perform(NSSelectorFromString("sendWrappedEvent:message:"), with: String(page.id), with: event)
-      }
+    for page in RCTInspector.pages() where !page.title.contains("Reanimated") {
+      perform(NSSelectorFromString("sendWrappedEvent:message:"), with: String(page.id), with: event)
     }
   }
 }
@@ -124,3 +125,5 @@ extension URLSessionConfiguration {
     return config
   }
 }
+
+#endif

@@ -6,7 +6,7 @@ import Foundation
  The `ExpoNetworkInterceptorProtocolDelegate` implementation to dispatch CDP (Chrome DevTools Protocol) events
  */
 @objc
-public class ExpoRequestCdpLogger : NSObject, ExpoRequestInterceptorProtocolDelegate {
+public class ExpoRequestCdpLogger: NSObject, ExpoRequestInterceptorProtocolDelegate {
   private var delegate: ExpoRequestCdpLoggerDelegate?
 
   override private init() {}
@@ -21,7 +21,7 @@ public class ExpoRequestCdpLogger : NSObject, ExpoRequestInterceptorProtocolDele
     }
   }
 
-  private func dispatchEvent<T: CDP.EventParms>(_ event: CDP.Event<T>) {
+  private func dispatchEvent<T: CdpNetwork.EventParms>(_ event: CdpNetwork.Event<T>) {
     DispatchQueue.global().sync {
       let encoder = JSONEncoder()
       if let jsonData = try? encoder.encode(event), let payload = String(data: jsonData, encoding: .utf8) {
@@ -35,27 +35,27 @@ public class ExpoRequestCdpLogger : NSObject, ExpoRequestInterceptorProtocolDele
   func willSendRequest(requestId: String, request: URLRequest, redirectResponse: HTTPURLResponse?) {
     let now = Date().timeIntervalSince1970
 
-    let params = CDP.Network.RequestWillBeSentParams(now: now, requestId: requestId, request: request, redirectResponse: redirectResponse)
-    dispatchEvent(CDP.Event(method: "Network.requestWillBeSent", params: params))
+    let params = CdpNetwork.RequestWillBeSentParams(now: now, requestId: requestId, request: request, redirectResponse: redirectResponse)
+    dispatchEvent(CdpNetwork.Event(method: "Network.requestWillBeSent", params: params))
 
-    let params2 = CDP.Network.RequestWillBeSentExtraInfoParams(now: now, requestId: requestId, request: request)
-    dispatchEvent(CDP.Event(method: "Network.requestWillBeSentExtraInfo", params: params2))
+    let params2 = CdpNetwork.RequestWillBeSentExtraInfoParams(now: now, requestId: requestId, request: request)
+    dispatchEvent(CdpNetwork.Event(method: "Network.requestWillBeSentExtraInfo", params: params2))
   }
 
   func didReceiveResponse(requestId: String, request: URLRequest, response: HTTPURLResponse) {
     let now = Date().timeIntervalSince1970
 
-    let params = CDP.Network.ResponseReceivedParams(now: now, requestId: requestId, request: request, response: response)
-    dispatchEvent(CDP.Event(method: "Network.responseReceived", params: params))
+    let params = CdpNetwork.ResponseReceivedParams(now: now, requestId: requestId, request: request, response: response)
+    dispatchEvent(CdpNetwork.Event(method: "Network.responseReceived", params: params))
 
-    let params2 = CDP.Network.LoadingFinishedParams(now: now, requestId: requestId, request: request, response: response)
-    dispatchEvent(CDP.Event(method: "Network.loadingFinished", params: params2))
+    let params2 = CdpNetwork.LoadingFinishedParams(now: now, requestId: requestId, request: request, response: response)
+    dispatchEvent(CdpNetwork.Event(method: "Network.loadingFinished", params: params2))
   }
 
   func didReceiveResponseBody(requestId: String, responseBody: Data, isText: Bool) {
     let now = Date().timeIntervalSince1970
-    let params = CDP.Network.ExpoReceivedResponseBodyParams(now: now, requestId: requestId, responseBody: responseBody, isText: isText)
-    dispatchEvent(CDP.Event(method: "Expo(Network.receivedResponseBody)", params: params))
+    let params = CdpNetwork.ExpoReceivedResponseBodyParams(now: now, requestId: requestId, responseBody: responseBody, isText: isText)
+    dispatchEvent(CdpNetwork.Event(method: "Expo(Network.receivedResponseBody)", params: params))
   }
 }
 

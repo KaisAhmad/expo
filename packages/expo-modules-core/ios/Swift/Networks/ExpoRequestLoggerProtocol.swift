@@ -167,7 +167,6 @@ public class ExpoRequestInterceptorProtocol: URLProtocol, URLSessionDataDelegate
   }
 }
 
-
 /**
  The delegate to dispatch network request events
  */
